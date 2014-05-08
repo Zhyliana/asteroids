@@ -1,10 +1,10 @@
 (function(root){
   var Asteroids = root.Asteroids = (root.Asteroids || {});
-  var Ship = Asteroids.Ship = function(pos, vel, radius, color){
+  var Ship = Asteroids.Ship = function(pos, vel){
     this.pos = pos;
     this.vel = vel;
-    this.radius = radius;
-    this.color = color;
+    this.radius = 25;
+    this.color = "black";
   }
   Ship.inherits(Asteroids.MovingObject);
 
@@ -16,6 +16,7 @@
   };
   
   Ship.prototype.move = function () {
+    
     //goes too far right and apears left
     if(this.pos[0] >= window.innerWidth){
       this.pos[0] = 0;

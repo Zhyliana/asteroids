@@ -1,27 +1,29 @@
 (function(root){
   var Asteroids = root.Asteroids = (root.Asteroids || {});
+  
+  var Asteroid = Asteroids.Asteroid;
 
   var Game = Asteroids.Game = function (height, width, ctx) {
     this.height = height;
     this.width = width;
     this.ctx = ctx;
-    this.ship = new Asteroids.Ship([(width/2),(height/2)], [0,0], 20, "black");
     this.asteroids = [];
     this.show;
+    this.ship = new Asteroids.Ship([(width/2),(height/2)], [0,0]);
   };
 
-  Game.FPS = 300;
+  Game.FPS = 30;
 
   Game.prototype.addAsteroids = function (numAsteroids) {
-    for (var i=0; i<numAsteroids; i++) {
+    for (var i=0; i < numAsteroids; i++) {
       var randAsteroid = Asteroids.Asteroid.randomAsteroid();
       this.asteroids.push(randAsteroid);
     }
   };
 
   Game.prototype.draw = function (ctx) {
-    ctx.clearRect(0, 0, this.width, this.height);
     var game = this;
+    ctx.clearRect(0, 0, game.width, game.height);
     this.ship.draw(ctx);
     this.asteroids.forEach ( function (asteroid) {
       asteroid.draw(ctx);
@@ -37,8 +39,8 @@
       asteroid.move();
       if(asteroid.pos[0] > window.innerWidth  ||
         asteroid.pos[1] > window.innerHeight || asteroid.pos[1] < 0 || asteroid.pos[0] <0 ){
-        var newVel = [- asteroid.vel[0], - asteroid.vel[1]];
-        game.asteroids.push(new Asteroids.Asteroid(asteroid.pos, newVel, asteroid.radius, asteroid.color));
+        var newVel = [-asteroid.vel[0], - asteroid.vel[1]];
+        game.asteroids.push(new Asteroids.Asteroid(asteroid.pos, newVel));
         delete asteroids[asteroids.indexOf(asteroid)];
       }
     });
@@ -64,7 +66,7 @@
     key('up', function(){game.ship.power([0,-5])} );
     key('left', function(){game.ship.power([-5,0])});
     key('down', function(){game.ship.power([0,5])});
-    key('right', function(){game.ship.power([5,0])})
+    key('right', function(){game.ship.power([5,0])});
   }
   
   Game.prototype.step = function(){
