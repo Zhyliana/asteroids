@@ -32,6 +32,7 @@
     var asteroids = this.asteroids;
     var game = this
     this.ship.move();
+    
     this.asteroids.forEach(function(asteroid){
       asteroid.move();
       if(asteroid.pos[0] > window.innerWidth  ||
@@ -40,7 +41,6 @@
         game.asteroids.push(new Asteroids.Asteroid(asteroid.pos, newVel, asteroid.radius, asteroid.color));
         delete asteroids[asteroids.indexOf(asteroid)];
       }
-
     });
   };
 
@@ -55,6 +55,18 @@
     });
   };
 
+  Game.prototype.stop = function(){
+    clearInterval(this.show);
+  }
+
+  Game.prototype.bindKeyHandlers = function(){
+    var game = this;
+    key('up', function(){game.ship.power([0,-5])} );
+    key('left', function(){game.ship.power([-5,0])});
+    key('down', function(){game.ship.power([0,5])});
+    key('right', function(){game.ship.power([5,0])})
+  }
+  
   Game.prototype.step = function(){
     this.move();
     this.draw(this.ctx);
@@ -64,23 +76,8 @@
   Game.prototype.start = function(){
     var game = this;
     this.bindKeyHandlers();
-    this.addAsteroids(50);
+    this.addAsteroids(10);
     this.show = setInterval(game.step.bind(game), Game.FPS);
   };
-
-  Game.prototype.stop = function(){
-    clearInterval(this.show);
-  }
-
-  Game.prototype.bindKeyHandlers = function(){
-    var game = this;
-
-    key('w', function(){game.ship.power([0,1])} );
-    key('a', function(){game.ship.power([-1,0])});
-    key('s', function(){game.ship.power([0,-1])});
-    key('d', function(){game.ship.power([1,0])})
-  }
-
-
 
 })(this);

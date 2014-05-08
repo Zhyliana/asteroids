@@ -16,8 +16,7 @@
         canvas.height = window.innerHeight;
         canvas.width = window.innerWidth;
         var ctx = canvas.getContext("2d");
-        var game = new Asteroids.Game(canvas.height, canvas.width, ctx);
-        game.start();
+        var game = new Asteroids.Game(canvas.height, canvas.width, ctx).start();
     </script>
 </body>
 </html>
