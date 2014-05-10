@@ -18,29 +18,9 @@
      if(newY < 0) {
        newY += height;
       };
-    
+       
     this.pos[0] = newX;
     this.pos[1] = newY;
-  };
-
-
-  MovingObject.prototype.isCollidedWith = function(otherObj) {
-    var xDiff = Math.abs((this.pos[0]) - otherObj.pos[0]);
-    var yDiff = Math.abs((this.pos[1]) - otherObj.pos[1]);
-    
-    var backXDiff = Math.abs((this.pos[0]+50)- otherObj.pos[0])
-    var backLeftDiff = Math.abs((this.pos[1]+20) - otherObj.pos[1])
-    var backRightDiff = Math.abs(this.pos[1]-20 - otherObj.pos[1])
-
-    if((xDiff <= otherObj.radius && yDiff <= otherObj.radius) || 
-      (backXDiff <= otherObj.radius && 
-        (backLeftDiff <= otherObj.radius|| backRightDiff <= otherObj.radius))
-      ){
-      return true;
-    }
-    else {
-      return false;
-    };
   };
   
   
