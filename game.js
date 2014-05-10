@@ -35,10 +35,12 @@
     ctx.clearRect(0, 0, this.width, this.height);
     
     this.ship.drawship(ctx);
-    
-    this.bullets.forEach( function(bullet){
-      bullet.draw(ctx);
-    })
+
+    if(this.bullets.length >= 1){
+      this.bullets.forEach( function(bullet){
+        bullet.draw.bind(bullet)(ctx);
+      })
+    }
     
     var counter = new Date().getTime();
     this.asteroids.forEach( function(asteroid) {
@@ -61,6 +63,7 @@
     
     if(bullets.length >= 1){
       bullets.forEach( function(bullet){
+        debugger
         bullet.move(game.width, game.height);
       }); 
     }
@@ -110,8 +113,9 @@
   }
   
   Game.prototype.step = function(){
+    var ctx = this.ctx
     this.move();
-    this.draw(this.ctx);
+    this.draw(ctx);
     this.checkCollisions();
   };
 

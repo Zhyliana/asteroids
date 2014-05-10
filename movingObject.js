@@ -22,7 +22,5 @@
     this.pos[0] = newX;
     this.pos[1] = newY;
   };
-  
-  
-  
+
 })(this);
