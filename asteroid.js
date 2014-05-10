@@ -21,6 +21,18 @@
     var vel = Asteroid.randomVec();
     return new Asteroid(pos, vel);
   };
+  
+  Asteroid.prototype.draw = function(ctx) {
+    ctx.beginPath();
+    ctx.arc(this.pos[0], this.pos[1], this.radius, 0, 360);
+    var grd=ctx.createRadialGradient(this.pos[0],this.pos[1],5,this.pos[0],this.pos[1],this.radius);
+    grd.addColorStop(0,this.color);
+    grd.addColorStop(1,"black");
+    // grd.addColorStop(2, this.color);
+    ctx.fillStyle=grd;
+    // ctx.fillRect(10,10,150,100)
+    ctx.fill();
+  };
 
   Asteroid.randomVec = function() {
     var velX = (Math.random() * 2) - 1
