@@ -2,21 +2,33 @@
 <html>
 <head>
     <title>Asteroids</title>
+    <style>
+    canvas {
+      background-color: black
+;
+    }
+    </style>
     <script src="inherits.js"></script>
     <script src="movingObject.js"></script>
     <script src="game.js"></script>
     <script src="asteroid.js"></script>
     <script src="ship.js"></script>
-    <script src="keymaster.js"></script>
+    <script src="jquery.js"></script>
 </head>
-<body>
+<body >
     <canvas id="canvas"></canvas>
+    <embed src="newteeth.mp3" autostart="true" height="0px" width="0px" enablejavascript="true">
     <script>
-        var canvas = document.getElementById("canvas");
-        canvas.height = window.innerHeight;
-        canvas.width = window.innerWidth;
-        var ctx = canvas.getContext("2d");
-        var game = new Asteroids.Game(canvas.height, canvas.width, ctx).start();
+      function PlaySound(soundObj) {
+        document.getElementById(soundObj).Play();
+      }     
+      var canvas = document.getElementById("canvas");
+      var ctx = canvas.getContext("2d");
+      canvas.height = window.innerHeight;
+      canvas.width = window.innerWidth;
+
+      new Asteroids.Game(canvas.height, canvas.width, ctx).start();
     </script>
+    
 </body>
 </html>

@@ -14,35 +14,35 @@
 
   Game.FPS = 30;
 
-  Game.prototype.addAsteroids = function (numAsteroids) {
-    for (var i=0; i < numAsteroids; i++) {
+  Game.prototype.addAsteroids = function () {
+    var numAsteroids = (this.height + this.width) * 0.009
+    for (var i = 0; i < numAsteroids; i++) {
       var randAsteroid = Asteroids.Asteroid.randomAsteroid();
       this.asteroids.push(randAsteroid);
     }
   };
 
   Game.prototype.draw = function (ctx) {
-    var game = this;
-    ctx.clearRect(0, 0, game.width, game.height);
-    this.ship.draw(ctx);
-    this.asteroids.forEach ( function (asteroid) {
-      asteroid.draw(ctx);
+    ctx.clearRect(0, 0, this.width, this.height);
+    this.ship.drawship(ctx);
+    
+    var counter = new Date().getTime();
+    this.asteroids.forEach(function (asteroid) {
+       // asteroid.radius += Math.sin(30 * Math.PI);
+       asteroid.radius += Math.sin(counter * Math.PI / 900);
+       asteroid.draw(ctx);
     });
   };
 
   Game.prototype.move = function(){
+    var game = this;
     var asteroids = this.asteroids;
-    var game = this
-    this.ship.move();
+    var ship = this.ship;
     
-    this.asteroids.forEach(function(asteroid){
-      asteroid.move();
-      if(asteroid.pos[0] > window.innerWidth  ||
-        asteroid.pos[1] > window.innerHeight || asteroid.pos[1] < 0 || asteroid.pos[0] <0 ){
-        var newVel = [-asteroid.vel[0], - asteroid.vel[1]];
-        game.asteroids.push(new Asteroids.Asteroid(asteroid.pos, newVel));
-        delete asteroids[asteroids.indexOf(asteroid)];
-      }
+    ship.moveship(game.width, game.height);
+    
+    asteroids.forEach(function(asteroid){
+      asteroid.move(game.width, game.height);
     });
   };
 
@@ -51,7 +51,7 @@
     var game = this;
     this.asteroids.forEach(function(asteroid) {
       if (ship.isCollidedWith.bind(ship, asteroid)()) {
-        alert("GAME OVER");
+        alert("crashed");
         game.stop();
       }
     });
@@ -62,11 +62,26 @@
   }
 
   Game.prototype.bindKeyHandlers = function(){
-    var game = this;
-    key('up', function(){game.ship.power([0,-5])} );
-    key('left', function(){game.ship.power([-5,0])});
-    key('down', function(){game.ship.power([0,5])});
-    key('right', function(){game.ship.power([5,0])});
+    var ship = this.ship;
+    var speed = Game.FPS/10;
+    
+    $(window).keydown(function(key){
+         console.log(key.keyCode);
+         switch(key.keyCode){
+         case 37: //left
+           ship.power([-speed,0]);
+           break;
+         case 38://up
+           ship.power([0,-speed]);
+           break;
+         case 39://right
+           ship.power([speed,0]);
+           break;
+         case 40://down
+           ship.power([0,speed]);
+           break;
+         }
+       })
   }
   
   Game.prototype.step = function(){
@@ -78,7 +93,7 @@
   Game.prototype.start = function(){
     var game = this;
     this.bindKeyHandlers();
-    this.addAsteroids(10);
+    this.addAsteroids();
     this.show = setInterval(game.step.bind(game), Game.FPS);
   };
 
