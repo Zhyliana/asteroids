@@ -35,9 +35,13 @@
     this.pos[1] = newY;
   };
 
-  Ship.prototype.power = function (impulse) {
-    this.vel[0] += impulse[0];
-    this.vel[1] += impulse[1];
+  Ship.prototype.power = function (power) {
+    if (Math.abs(this.vel[0]) <= 10) {
+      this.vel[0] += power[0];
+    }
+    if (Math.abs(this.vel[1]) <= 10) {
+      this.vel[1] += power[1];
+    }
   };
   
   
@@ -52,16 +56,15 @@
     var yDiff = Math.abs((this.pos[1]) - otherObj.pos[1]);
     
     var backXDiff = Math.abs((this.pos[0]+50)- otherObj.pos[0])
-    var backLeftDiff = Math.abs((this.pos[1]+20) - otherObj.pos[1])
-    var backRightDiff = Math.abs(this.pos[1]-20 - otherObj.pos[1])
+    var backLeftDiff = Math.abs((this.pos[1]+10) - otherObj.pos[1])
+    var backRightDiff = Math.abs(this.pos[1]-10 - otherObj.pos[1])
 
     if((xDiff <= otherObj.radius && yDiff <= otherObj.radius) || 
       (backXDiff <= otherObj.radius && 
         (backLeftDiff <= otherObj.radius|| backRightDiff <= otherObj.radius))
       ){
       return true;
-    }
-    else {
+    } else {
       return false;
     };
   };

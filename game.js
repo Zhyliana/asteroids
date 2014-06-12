@@ -38,7 +38,7 @@
 
     if(this.bullets.length >= 1){
       this.bullets.forEach( function(bullet){
-        debugger
+        // debugger
         bullet.draw.bind(bullet)(this.ctx);
       })
     }
@@ -75,20 +75,17 @@
     
     this.asteroids.forEach( function(asteroid) {
       if (ship.isCollidedWith.bind(ship, asteroid)()) {
+        $pop.play();
         var idx = game.asteroids.indexOf(asteroid);
         game.asteroids.splice(idx, 1)
       }
     });
   };
 
-  Game.prototype.stop = function(){
-    clearInterval(this.show);
-  }
-
   Game.prototype.bindKeyHandlers = function(){
     var game = this;
     var ship = this.ship;
-    var speed = Game.FPS/250;
+    var speed = Game.FPS/500;
     
     $(window).keydown( function(key){
       switch(key.keyCode){
@@ -113,11 +110,9 @@
   
   Game.prototype.checkWin = function(){
     if (this.asteroids.length === 0) {
-      // debugger
-      if($("#modal").length < 1){
-        $("body").prepend("<div id=\"modal\">You won!</div><div id=\"restart\">Click here to start new game</div>")
-      }
-      // this.stop()
+      $("body").prepend("<div id=\"modal\">You won!</div><div id=\"restart\">Click here to start new game</div>")
+      clearInterval(this.show);
+
       $("canvas").click(function(){
         $("#modal").remove()
         $("#restart").remove()
