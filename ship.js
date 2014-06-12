@@ -9,13 +9,16 @@
   Ship.inherits(Asteroids.MovingObject);
   
   Ship.prototype.drawship = function(ctx){
-    ctx.fill();
-    ctx.fillStyle = "white";
+    ctx.fillStyle = "rgba(248, 168, 169, 0.5)";
+    ctx.strokeStyle = "rgb(248, 168, 169)";
     ctx.beginPath();
     ctx.moveTo(this.pos[0], this.pos[1]);
-    ctx.lineTo(this.pos[0]+50, this.pos[1]+20);
-    ctx.lineTo(this.pos[0]+50, this.pos[1]-20);
+    ctx.lineTo(this.pos[0]+50, this.pos[1]+10);
+    ctx.lineTo(this.pos[0]+50, this.pos[1]-10);
+    ctx.lineWidth = 2;
+    ctx.closePath();
     ctx.fill();
+    ctx.stroke();
   }
   
   Ship.prototype.moveship = function(width, height){
@@ -37,24 +40,10 @@
     this.vel[1] += impulse[1];
   };
   
-  // Ship.prototype.fireBullet = function(){
-  //   // var speed = Math.pow((Math.pow(this.pos[0],2) + Math.pow(this.pos[1],2)),0.5);
-  //   
-  //   return new Asteroids.Bullet(this.pos, [(this.vel[0] * 5),(this.vel[1] * 5)])
-  // }
   
   Ship.prototype.fireBullet = function () {
-    // var relVel = Asteroids.Util.scale(
-  //     Asteroids.Util.dir(this.vel),
-  //     Asteroids.Bullet.SPEED
-  //   );
-  
-    // var bulletVel = [
-    //   relVel[0] + this.vel[0], relVel[1] + this.vel[1]
-    // ];
-  
     var bullet = new Asteroids.Bullet(this.pos, [10, 10]);
-    
+    bullet.draw();
     return bullet
   };
   

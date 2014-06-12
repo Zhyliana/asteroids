@@ -15,6 +15,5 @@
     ctx.fillStyle = "red";
     ctx.fill();
   };
-
-  
+ 
 })(this);

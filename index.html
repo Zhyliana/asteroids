@@ -4,7 +4,22 @@
     <title>Asteroids</title>
     <style>
     canvas {
-      background-color: black;
+      background-color: #FAFEFF;
+    }
+    
+    #modal, #restart {
+      position: absolute;
+      color: #74808A;
+      font-family: "Helvetica Neue";
+      font-size: 70px;
+      top: 40%;
+      left: 40%;
+    }
+    
+    #restart {
+      font-size: 24px;
+      top: 57%;
+      left: 38%;
     }
     </style>
     <script src="inherits.js"></script>
@@ -17,11 +32,8 @@
 </head>
 <body >
     <canvas id="canvas"></canvas>
-    <embed src="newteeth.mp3" autostart="true" height="0px" width="0px" enablejavascript="true">
-    <script>
-      function PlaySound(soundObj) {
-        document.getElementById(soundObj).Play();
-      }     
+    <!-- <embed src="newteeth.mp3" autostart="true" height="0px" width="0px" enablejavascript="true"> -->
+    <script>    
       var canvas = document.getElementById("canvas");
       var ctx = canvas.getContext("2d");
       canvas.height = window.innerHeight;
@@ -29,6 +41,6 @@
 
       new Asteroids.Game(canvas.height, canvas.width, ctx).start();
     </script>
-    
+     
 </body>
 </html>
