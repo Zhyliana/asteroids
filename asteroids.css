@@ -1,0 +1,18 @@
+canvas {
+  background-color: #FAFEFF;
+}
+
+#modal, #restart {
+  position: absolute;
+  color: #74808A;
+  font-family: "Helvetica Neue";
+  font-size: 70px;
+  top: 40%;
+  left: 40%;
+}
+
+#restart {
+  font-size: 24px;
+  top: 57%;
+  left: 38%;
+}
