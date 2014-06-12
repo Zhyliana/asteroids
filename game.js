@@ -112,7 +112,7 @@
   };
   
   Game.prototype.checkWin = function(){
-    if (this.asteroids.length <= 15) {
+    if (this.asteroids.length === 0) {
       // debugger
       if($("#modal").length < 1){
         $("body").prepend("<div id=\"modal\">You won!</div><div id=\"restart\">Click here to start new game</div>")
